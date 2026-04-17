@@ -17,7 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </Link>
           <nav className="flex items-center gap-4 text-sm text-slate-700">
             <Link href="/profile">Perfil</Link>
-            <Link href="/api/auth/signin">Iniciar sesión</Link>
+            <Link href="/auth/signin">Iniciar sesión</Link>
           </nav>
         </header>
         {children}

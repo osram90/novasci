@@ -33,7 +33,8 @@ Luego abre `http://localhost:3000`.
 
 ## Rutas útiles
 
-- `/` landing del portal
+- `/` portada estilo feed científico
+- `/api/articles` feed de artículos para home
 - `/profile` perfil con datos ORCID parseados
 - `/api/orcid/profile` endpoint del perfil ORCID
-- `/api/auth/signin` login de NextAuth
+- `/auth/signin` login personalizado
