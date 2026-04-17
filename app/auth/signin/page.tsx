@@ -1,12 +1,27 @@
 'use client';
 
 import { FormEvent, useState } from 'react';
+import toast from 'react-hot-toast';
+
+const ORCID_CLIENT_ID = process.env.NEXT_PUBLIC_ORCID_CLIENT_ID;
+const ORCID_REDIRECT_URI = process.env.NEXT_PUBLIC_ORCID_REDIRECT_URI;
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
 
   const handleOrcidLogin = () => {
-    window.location.href = '/api/oauth/orcid';
+    if (!ORCID_CLIENT_ID || !ORCID_REDIRECT_URI) {
+      toast.error('Configuración ORCID incompleta (.env)');
+      return;
+    }
+
+    const url =
+      `https://sandbox.orcid.org/oauth/authorize?client_id=${ORCID_CLIENT_ID}` +
+      '&response_type=code' +
+      '&scope=/authenticate' +
+      `&redirect_uri=${encodeURIComponent(ORCID_REDIRECT_URI)}`;
+
+    window.location.href = url;
   };
 
   const handleEmailLogin = (event: FormEvent<HTMLFormElement>) => {
@@ -16,16 +31,16 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="flex min-h-[80vh] items-center justify-center px-4">
-      <section className="w-full max-w-md rounded-2xl border bg-white p-8 shadow-sm">
+    <div className="flex min-h-[80vh] items-center justify-center bg-slate-50">
+      <div className="w-full max-w-md rounded-2xl border bg-white p-8 shadow-sm">
         <div className="mb-4 flex justify-center">
-          <div className="rounded-xl bg-blue-100 p-3 text-2xl">🎓</div>
+          <div className="rounded-xl bg-blue-100 p-3">
+            <span className="text-2xl">🎓</span>
+          </div>
         </div>
 
         <h1 className="text-center text-2xl font-bold text-slate-800">Bienvenido a Nova Scientia</h1>
-        <p className="mb-6 mt-2 text-center text-slate-500">
-          La plataforma de divulgación científica con identidad verificada.
-        </p>
+        <p className="mb-6 mt-2 text-center text-slate-500">Plataforma de divulgación científica con identidad verificada.</p>
 
         <button
           onClick={handleOrcidLogin}
@@ -42,8 +57,8 @@ export default function LoginPage() {
           <div className="h-px flex-1 bg-slate-200" />
         </div>
 
-        <form onSubmit={handleEmailLogin} className="space-y-4">
-          <div>
+        <form onSubmit={handleEmailLogin}>
+          <div className="mb-4">
             <label className="text-sm text-slate-600">Email</label>
             <input
               type="email"
@@ -51,11 +66,10 @@ export default function LoginPage() {
               onChange={(event) => setEmail(event.target.value)}
               placeholder="tu@universidad.edu"
               className="mt-1 w-full rounded-lg border px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
             />
           </div>
 
-          <div>
+          <div className="mb-6">
             <label className="text-sm text-slate-600">Contraseña</label>
             <input
               type="password"
@@ -70,9 +84,9 @@ export default function LoginPage() {
         </form>
 
         <p className="mt-4 text-center text-xs text-slate-400">
-          Al registrarte, aceptas nuestras políticas de divulgación abierta y ética científica.
+          Al registrarte aceptas nuestras políticas de divulgación abierta.
         </p>
-      </section>
-    </main>
+      </div>
+    </div>
   );
 }
