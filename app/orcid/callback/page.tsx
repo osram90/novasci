@@ -1,9 +1,10 @@
 'use client';
 
+import { Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
-export default function OrcidCallbackPage() {
+function OrcidCallbackContent() {
   const params = useSearchParams();
   const code = params.get('code');
   const error = params.get('error');
@@ -27,5 +28,13 @@ export default function OrcidCallbackPage() {
         Volver a login
       </Link>
     </section>
+  );
+}
+
+export default function OrcidCallbackPage() {
+  return (
+    <Suspense fallback={<section className="mx-auto max-w-2xl rounded-2xl border bg-white p-8">Cargando callback ORCID...</section>}>
+      <OrcidCallbackContent />
+    </Suspense>
   );
 }
