@@ -1,0 +1,3 @@
+[33m8160bb6[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m fix: enable tailwindcss pipeline
+[33m378be25[m Merge pull request #2 from osram90/codex/continue-development-of-nova-scientia-q3o669
+[33mc78174a[m[33m ([m[1;31morigin/codex/continue-development-of-nova-scientia-q3o669[m[33m)[m feat: wire ORCID OAuth env flow and callback page
